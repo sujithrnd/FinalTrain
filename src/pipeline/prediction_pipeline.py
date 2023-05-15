@@ -31,36 +31,46 @@ class Predictionpipeline:
 
 class CustomData:
     def __init__(seld,                 
-                age            :int, 
-                workclass      :str,
-                fnlwgt         :int ,
-                education      :str,
-                education_num  :int ,
-                marital_status :str,
-                occupation     :str,
-                relationship   :str,
-                race           :str,
-                sex            :str,
-                capital_gain   :int ,
-                capital_loss   :int ,
-                hours_per_week :int ,
-                native_country :str):
-                #Class          :str):
-                self.age            = age            
-                self.workclass      = workclass      
-                self.fnlwgt         = fnlwgt         
-                self.education      = education      
-                self.education_num  = education_num  
-                self.marital_status = marital_status 
-                self.occupation     = occupation     
-                self.relationship   = relationship   
-                self.race           = race           
-                self.sex            = sex            
-                self.capital_gain   = capital_gain   
-                self.capital_loss   = capital_loss   
-                self.hours_per_week = hours_per_week 
-                self.native_country = native_country 
-                #self.Class        = Class
+                weather         :str, 
+                road_traffic    :str,
+                type_order      :str ,
+                type_vehicle    :str,
+                festival        :str ,
+                city            :str,
+
+                Delivery_person_Age     :int,
+                Delivery_person_Ratings   :int,
+                Vehicle_condition           :int,
+                multiple_deliveries            :int,
+                Day:int,
+                Month:int,
+                Year:int,
+                Order_Hr:int,
+                Order_Min:int,
+                Order_Sec:int):
+
+
+                self.weather         :weather
+                self.road_traffic    :road_traffic
+                self.type_order      :type_order 
+                self.type_vehicle    :type_vehicle
+                self.festival        :festival 
+                self.city            :city
+
+                self.Delivery_person_Age     :Delivery_person_Age
+                self.Delivery_person_Ratings   :Delivery_person_Ratings
+                self.Vehicle_condition           :Vehicle_condition
+                self.multiple_deliveries            :multiple_deliveries
+                self.Day:Day
+                self.Month:Month
+                self.Year:Year
+                self.Order_Hr:Order_Hr
+                self.Order_Min:Order_Min
+                self.Order_Sec:Order_Sec
+           
+
+
+
 
     """
                  carat:float,
@@ -85,7 +95,29 @@ class CustomData:
 
     def  get_data_as_dataframe(self):
         try:
-            custom_data_input_dict1 = {
+            custom_data_input_dict = {
+                'weather':[self.weather],
+                'road_traffic':[self.road_traffic],
+                'type_order':[self.type_order],
+                 'type_vehicle':[self.type_vehicle],
+                 'festival':[self.festival],
+                 'city':[self.city],
+                  'Delivery_person_Age':[self.Delivery_person_Age],
+                  'Delivery_person_Ratings':[self.Delivery_person_Ratings],
+
+                  'Vehicle_condition':[self.Vehicle_condition],
+                  'multiple_deliveries':[self.multiple_deliveries],
+                  'Delivery_person_Ratings':[self.Delivery_person_Ratings],
+                  'Day':[self.Day],
+                  'Month':[self.Month],
+                  'Year':[self.Year],
+                  'Order_Hr':[self.Order_Hr],
+                  'Order_Min':[self.Order_Min],
+                  'Order_Sec':[self.Order_Sec],
+
+
+            }
+            custom_data_input_dict11 = {
                 'carat':[self.carat],
                 'depth':[self.depth],
                 'table':[self.table],
@@ -95,22 +127,7 @@ class CustomData:
                   'color':[self.color],
                   'clarity':[self.clarity]
             }
-            custom_data_input_dict = {
-                'age':[self.age],
-                'workclass':[self.workclass],
-                'fnlwgt':[self.fnlwgt],
-                 'education':[self.education],
-                 'education_num':[self.education_num],
-                 'marital_status':[self.marital_status],
-                  'occupation':[self.occupation],
-                  'relationship':[self.relationship],
-				  'race':[self.race],
-				  'sex':[self.sex],
-				  'capital_gain':[self.capital_gain],
-				  'capital_loss':[self.capital_loss],
-				   'hours_per_week':[self.hours_per_week],
-				    'native_country':[self.native_country]#,
-					# 'Class':[self.Class]
+            
             }	
             df=pd.DataFrame(custom_data_input_dict)
             logging.info('Data Frame gathered')

@@ -26,25 +26,18 @@ class DataTransformation:
         try:
             logging.info('Data Transformation initiated')
             # Define which columns should be ordinal-encoded and which should be scaled
-            categorical_cols =     ['workclass', 'education', 'marital_status', 'occupation',       'relationship', 'race', 'sex', 'native_country']#, 'Class']
-
-            numerical_cols = ['age', 'fnlwgt', 'education_num', 'capital_gain', 'capital_loss',     'hours_per_week']
-            
-       
-               
-            # Define the custom ranking for each ordinal variable
-            workclass_cat = [' State-gov',' Self-emp-not-inc',' Private',' Federal-gov',' Local-gov', ' Self-emp-inc',' Without-pay',' Never-worked']
-            education_cat = [' Bachelors',' HS-grad',' 11th',' Masters',' 9th',' Some-college',' Assoc-acdm',' Assoc-voc',' 7th-8th',' Doctorate',' Prof-school' ,' 5th-6th',' 10th',' 1st-4th',' Preschool',' 12th']
-            marital_status_cat = [' Never-married',' Married-civ-spouse',' Divorced', ' Married-spouse-absent',' Separated',' Married-AF-spouse',' Widowed']
-            occupation_cat = [' Adm-clerical',' Exec-managerial',' Handlers-cleaners',' Prof-specialty', ' Other-service',' Sales',' Craft-repair',' Transport-moving', ' Farming-fishing',' Machine-op-inspct',' Tech-support', ' Protective-serv',' Armed-Forces',' Priv-house-serv']
-            relationship_cat = [' Not-in-family',' Husband',' Wife',' Own-child',' Unmarried', ' Other-relative']
-            race_cat = [' White',' Black',' Asian-Pac-Islander',' Amer-Indian-Eskimo',' Other']
-            sex_cat = [' Male',' Female']
-            native_country_cat = [' United-States',' Cuba',' Jamaica',' India',' ?',' Mexico',' South', ' Puerto-Rico',' Honduras',' England',' Canada',' Germany',' Iran', ' Philippines',' Italy',' Poland',' Columbia',' Cambodia',' Thailand', ' Ecuador',' Laos',' Taiwan',' Haiti',' Portugal',' Dominican-Republic', ' El-Salvador',' France',' Guatemala',' China',' Japan',' Yugoslavia', ' Peru',' Outlying-US(Guam-USVI-etc)',' Scotland',' Trinadad&Tobago', ' Greece',' Nicaragua',' Vietnam',' Hong',' Ireland',' Hungary', ' Holand-Netherlands']
-            #Class = [40000 60000]
-        
-
-      
+            categorical_cols =  ['Weather_conditions', 'Road_traffic_density', 'Type_of_order', 'Type_of_vehicle', 'Festival', 'City']                      
+            numerical_cols =['Delivery_person_Age', 'Delivery_person_Ratings', 'Vehicle_condition', 'multiple_deliveries',  'Day', 'Month', 'Year',  'Order_Hr', 'Order_Min', 'Order_Sec']
+         
+            # Define the custom ranking for each ordinal variable - fix this   
+            weather_cat=['Fog' ,'Stormy', 'Sandstorms', 'Windy', 'Cloudy', 'Sunny']
+            road_traffic_cat=['Jam' ,'High', 'Medium' ,'Low']
+            type_order_cat=['Snack', 'Meal' ,'Drinks', 'Buffet']
+            type_vehicle_cat=['motorcycle' ,'scooter', 'electric_scooter' ,'bicycle']
+            festival_cat=['No','Yes']
+            city_cat= ['Metropolitian' ,'Urban', 'Semi-Urban']
+          
+   
            
 
             logging.info('Pipeline Initiated')
@@ -63,11 +56,9 @@ class DataTransformation:
                      
             cat_pipeline=Pipeline(
                 steps=[
-                ('imputer',SimpleImputer(strategy='most_frequent')),
-                #('ordinalencoder',OrdinalEncoder(categories=[weather_cat,Road_traffic_density_cat,Type_of_order_cat,Type_of_vehicle_cat,Festival_cat,City_cat])),
+                ('imputer',SimpleImputer(strategy='most_frequent')),              
                 #('ordinalencoder',OrdinalEncoder(categories=[workclass_cat,education_cat ,marital_status_cat,occupation_cat,relationship_cat, race_cat,sex_cat,native_country_cat,class_cat])),
-                ('ordinalencoder',OrdinalEncoder(categories=[workclass_cat,education_cat ,marital_status_cat,occupation_cat,relationship_cat, race_cat,sex_cat,native_country_cat])),
-               #  ('label_encoder', LabelEncoder()),
+                ('ordinalencoder',OrdinalEncoder(categories=[weather_cat,    road_traffic_cat,     type_order_cat,    type_vehicle_cat,            festival_cat,   city_cat])),              
                  ('scaler',StandardScaler())
                 ]
 
@@ -106,7 +97,7 @@ class DataTransformation:
 
             preprocessing_obj = self.get_data_transformation_object()
             logging.info('ini data transformation start 3')
-            target_column_name = 'Class'#'price'cls
+            target_column_name = 'Time_taken (min)'
 
             drop_columns = [target_column_name]#,'id']
             logging.info('ini data transformation start 4')
@@ -117,8 +108,8 @@ class DataTransformation:
             print('ini data transformation start 6')
             target_feature_test_df=test_df[target_column_name]
             print('ini data transformation start 7')
-            print('TRAIN###################\n',input_feature_train_df.sample(5))
-            print('TEST########',input_feature_test_df.sample(5))
+            print('TRAIN#\n',input_feature_train_df.sample(5))
+            print('TEST#',input_feature_test_df.sample(5))
           
 
            

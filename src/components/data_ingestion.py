@@ -11,7 +11,7 @@ from src.components.data_transformation import DataTransformation
 
 @dataclass
 class DataIngestionConfig:
-    train_data_path:str =os.path.join('artifacts','adult_clean.csv')
+    train_data_path:str =os.path.join('artifacts','finaltrain_clean.csv')
     test_data_path:str=os.path.join('artifacts','test.csv')
     raw_data_path:str=os.path.join('artifacts','raw.csv')
 #create a class for Data ingestion
@@ -23,8 +23,8 @@ class DataIngestion:
         try:
 
             logging.info("Initiate Data ingestion")         
-            df=pd.read_csv(os.path.join('notebook/data','adult_clean.csv'))
-            logging.info('Dataset read using pandas Dataframe')
+            df=pd.read_csv(os.path.join('notebook/data','finaltrain_clean.csv'))
+            logging.info('Dataset read using pandas Dataframe#########\n',df.head())
             os.makedirs(os.path.dirname(self.ingestion_config.raw_data_path),exist_ok=True)
             df.to_csv(self.ingestion_config.raw_data_path,index=False)
             logging.info('Train test data split')
